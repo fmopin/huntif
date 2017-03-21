@@ -31,7 +31,8 @@
         loader:0,
         votesTotal: this.$route.params.postVotes,
         days: _.range(31),
-        lastVoteId: 0
+        lastVoteId: 0,
+        dataSet: []
       }
     },
 
@@ -76,10 +77,15 @@
 
       votesPerDay() {
 
+        let hours = []
+        let count = {}
+
         for (var i = 0; i < this.votes.length; i++) {
-          console.log(new Date(this.votes[i].date).getHours());
+          hours.push(new Date(this.votes[i].date).getHours())
         }
 
+        hours.forEach(function(i) { count[i] = (count[i]||0)+1;  });
+        this.dataSet = count
       }
     }
   }
