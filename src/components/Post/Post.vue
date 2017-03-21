@@ -22,13 +22,11 @@
   import axios from 'axios'
   import _ from 'lodash'
 
-  console.log('coucou');
-
   export default {
 
     data() {
       return {
-        votes: null,
+        votes: [],
         postId: this.$route.params.postId,
         loader:0,
         votesTotal: this.$route.params.postVotes,
@@ -48,23 +46,21 @@
         this.loader = 0
         axios.get(`v1/posts/${this.postId}/votes`, {params: {newer: this.lastVoteId, order: 'asc'}})
           .then((response) => {
-            console.log(response)
-            for (var i = 0; i < response.data.votes.length; i++) {
-              this.votes.push = response.data.votes
-            }
+            // console.log(response)
 
-            this.lastVoteId = this.votes[this.votes.length-1]
+            if (this.votes.length < this.votesTotal) {
 
-            if (this.votes.length != this.votesTotal) {
-              console.log(this.lastVoteId)
-              console.log('pas assez de votes')
+              for (let i = 0; i < response.data.votes.length; i++) {
+                this.votes.push(response.data.votes[i].created_at)
+              }
+              this.lastVoteId = this.votes[this.votes.length-1]
+
               this.getVotes()
             }
             else {
-              console.log('assez de votes')
+              this.votes = this.votes.splice(0, this.votesTotal)
             }
-            // this.countStats()
-            // this.loader = 1
+            
           })
           .catch(function (error) {
             console.log(error)
