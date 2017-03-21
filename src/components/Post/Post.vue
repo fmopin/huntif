@@ -45,28 +45,41 @@
         //requete ProductHunt
         this.loader = 0
         axios.get(`v1/posts/${this.postId}/votes`, {params: {newer: this.lastVoteId, order: 'asc'}})
+        // axios.get(`v1/posts/${this.postId}/votes`)
           .then((response) => {
+
             // console.log(response)
 
             if (this.votes.length < this.votesTotal) {
 
               for (let i = 0; i < response.data.votes.length; i++) {
-                this.votes.push(response.data.votes[i].created_at)
+                this.votes.push({
+                  id: response.data.votes[i].id,
+                  date: response.data.votes[i].created_at
+                })
               }
-              this.lastVoteId = this.votes[this.votes.length-1]
+              this.lastVoteId = this.votes[this.votes.length-1].id
 
               this.getVotes()
             }
             else {
               this.votes = this.votes.splice(0, this.votesTotal)
+              this.votesPerDay()
             }
-            
           })
           .catch(function (error) {
             console.log(error)
           });
 
         // console.log('getPosts...')
+      },
+
+      votesPerDay() {
+
+        for (var i = 0; i < this.votes.length; i++) {
+          console.log(new Date(this.votes[i].date).getHours());
+        }
+
       }
     }
   }
