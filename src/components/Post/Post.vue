@@ -107,20 +107,20 @@
                     label: 'Numbers of Votes per hours',
                     data: Object.values(this.dataSet),
                     fill: true,
-                    lineTension: 0.1,
-                    backgroundColor: "rgba(75,192,192,0.4)",
-                    borderColor: "rgba(75,192,192,1)",
+                    lineTension: 0.3,
+                    backgroundColor: "rgba(109, 102, 203, 0.8)",
+                    borderColor: "rgb(210, 209, 214)",
                     borderCapStyle: 'butt',
                     borderDash: [],
                     borderDashOffset: 0.0,
                     borderJoinStyle: 'miter',
-                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointBorderColor: "rgb(215, 136, 169)",
                     pointBackgroundColor: "#fff",
-                    pointBorderWidth: 1,
+                    pointBorderWidth: 5,
                     pointRadius: 5,
                     pointHoverRadius: 5,
-                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBackgroundColor: "rgb(215, 136, 169)",
+                    pointHoverBorderColor: "rgb(215, 136, 169)",
                     pointHoverBorderWidth: 2,
                     pointRadius: 1,
                     pointHitRadius: 10,
@@ -128,9 +128,21 @@
                 }]
             },
 
-            option: {
+            options: {
               responsive: true,
               maintainAspectRatio: false,
+              scales: {
+                xAxes: [{
+                          gridLines: {
+                              display:false
+                          }
+                        }],
+                yAxes: [{
+                          gridLines: {
+                              display:false
+                          }
+                        }]
+              }
             }
         })
       }
