@@ -8,11 +8,13 @@
 <div>
 
   <span>Post Id: </span>
-  <span>{{this.postId}}</span>
+  <span>{{this.$route.params.postId}}</span>
   <span> Post Name: </span>
   <span>{{this.$route.params.postName}}</span>
 
-  <canvas id="myChart" width="400" height="400"></canvas>
+  <div class="chart">
+    <canvas id="myChart" width="400" height="400"></canvas>
+  </div>
 
 </div>
 </template>
@@ -30,10 +32,9 @@
     data() {
       return {
         votes: [],
-        postId: this.$route.params.postId,
+        // postId: this.$route.params.postId,
         loader:0,
-        votesTotal: this.$route.params.postVotes,
-        days: _.range(31),
+        // votesTotal: this.$route.params.postVotes,
         lastVoteId: 0,
         dataSet: []
       }
@@ -47,14 +48,17 @@
 
       getVotes() {
         //requete ProductHunt
+
+        console.log('get votes function executed')
+
         this.loader = 0
-        axios.get(`v1/posts/${this.postId}/votes`, {params: {newer: this.lastVoteId, order: 'asc'}})
-        // axios.get(`v1/posts/${this.postId}/votes`)
+        axios.get(`v1/posts/${this.$route.params.postId}/votes`, {params: {newer: this.lastVoteId, order: 'asc'}})
+        // axios.get(`v1/posts/${this.$route.params.postId}/votes`)
           .then((response) => {
 
             // console.log(response)
 
-            if (this.votes.length < this.votesTotal) {
+            if (this.votes.length < this.$route.params.postVotes) {
 
               for (let i = 0; i < response.data.votes.length; i++) {
                 this.votes.push({
@@ -67,7 +71,7 @@
               this.getVotes()
             }
             else {
-              this.votes = this.votes.splice(0, this.votesTotal)
+              this.votes = this.votes.splice(0, this.$route.params.postVotes)
               this.votesPerDay()
             }
           })
@@ -94,41 +98,39 @@
 
       createChart() {
 
-        var ctx = document.getElementById("myChart");
+        var ctx = document.getElementById("myChart").getContext("2d")
         var myChart = new Chart(ctx, {
-            type: 'bar',
+            type: 'line',
             data: {
                 labels: Object.keys(this.dataSet),
                 datasets: [{
-                    label: '# of Votes',
+                    label: 'Numbers of Votes per hours',
                     data: Object.values(this.dataSet),
-                    // backgroundColor: [
-                    //     'rgba(255, 99, 132, 0.2)',
-                    //     'rgba(54, 162, 235, 0.2)',
-                    //     'rgba(255, 206, 86, 0.2)',
-                    //     'rgba(75, 192, 192, 0.2)',
-                    //     'rgba(153, 102, 255, 0.2)',
-                    //     'rgba(255, 159, 64, 0.2)'
-                    // ],
-                    // borderColor: [
-                    //     'rgba(255,99,132,1)',
-                    //     'rgba(54, 162, 235, 1)',
-                    //     'rgba(255, 206, 86, 1)',
-                    //     'rgba(75, 192, 192, 1)',
-                    //     'rgba(153, 102, 255, 1)',
-                    //     'rgba(255, 159, 64, 1)'
-                    // ],
-                    borderWidth: 1
+                    fill: true,
+                    lineTension: 0.1,
+                    backgroundColor: "rgba(75,192,192,0.4)",
+                    borderColor: "rgba(75,192,192,1)",
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: 'miter',
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointBackgroundColor: "#fff",
+                    pointBorderWidth: 1,
+                    pointRadius: 5,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 1,
+                    pointHitRadius: 10,
+                    spanGaps: false,
                 }]
             },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true
-                        }
-                    }]
-                }
+
+            option: {
+              responsive: true,
+              maintainAspectRatio: false,
             }
         })
       }
