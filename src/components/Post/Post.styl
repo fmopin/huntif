@@ -1,3 +1,20 @@
+// Import des variables css (à charger dans chaque composant si besoin)
+@import '~css/variables'
+
 .chart
   width 35%
   height 35%
+
+.post-list-comment
+  display flex
+  flex-flow row wrap
+  // align-items center
+  width 70%
+  margin auto
+
+  &__li
+    width 100%
+    background-color $white
+    box-shadow 0 1px 1px 0 $gray-gray
+    margin-top 20px
+    padding 20px 40px 40px 20px

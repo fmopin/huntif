@@ -12,6 +12,23 @@
   <span> Post Name: </span>
   <span>{{this.$route.params.postName}}</span>
 
+  <ul class="post-list-comment">
+    <li class="post-list-comment__li" v-for="comment in post.comments" :key="comment.id">
+      {{comment.body}}
+      <a v-on:click="response=true">Lire Plus</a>
+
+      <ul v-if="response === true" class="post-list-comment">
+        <li class="post-list-comment__li" v-for="child in comment.child_comments" :key="comment.id">
+          {{child.body}}
+        </li>
+      </ul>
+
+    </li>
+  </ul>
+
+  <a v-on:click="postVote()" >Voter pour ce projet</a>
+  <audio id="audio" src="../../img/ah.mp3" type="audio/mp3"></audio>
+
   <div class="chart">
     <canvas id="myChart" width="400" height="400"></canvas>
   </div>
@@ -38,12 +55,15 @@
         loader:0,
         // votesTotal: this.$route.params.postVotes,
         lastVoteId: 0,
-        dataSet: []
+        dataSet: [],
+        post: null,
+        response: false
       }
     },
 
     created() {
       this.getVotes()
+      this.getComments()
     },
 
     methods: {
@@ -147,6 +167,22 @@
               }
             }
         })
+      },
+
+      getComments () {
+        https://api.producthunt.com/v1/docs/posts/posts_show_get_details_of_a_post
+        axios.get(`v1/posts/${this.$route.params.postId}/`, {params: {id: this.$route.params.postId}})
+          .then((response) => {
+            console.log(response.data.post)
+            this.post = response.data.post
+          })
+          .catch(function (error) {
+            console.log(error)
+          });
+      },
+
+      postVote () {
+        document.getElementById("audio").play()
       }
   }
 }
