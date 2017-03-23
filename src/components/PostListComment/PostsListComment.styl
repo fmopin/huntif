@@ -1,0 +1,23 @@
+// Import des variables css (à charger dans chaque composant si besoin)
+@import '~css/variables'
+
+// Style de mon composant PostsListComment :
+
+.post-list-comment
+  width calc(70%)
+  margin-top 20px
+  // margin-left 15px
+  // margin-right 15px
+  background-color $white
+  box-shadow 0 1px 1px 0 $gray-gray
+  border-radius 2pt
+
+  &__content
+    text-align justify
+    color $gray-gray
+    padding 20px
+    font-size 1em
+    line-height 20px
+
+  &__readMore
+    cursor pointer
