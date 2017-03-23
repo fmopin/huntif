@@ -12,22 +12,29 @@
   <span> Post Name: </span>
   <span>{{this.$route.params.postName}}</span>
 
-  <ul class="post-list-comment">
+  <ul class="post-list">
+    <post-list-comment v-for="comment in post.comments" :key="comment.id" :comment="comment"></post-list-comment>
+    <!-- <div class="posts-list__loader" v-if='loader === 0'>
+      <img src="../../img/loader.gif" alt="loader">
+    </div> -->
+  </ul>
+
+  <!-- <ul class="post-list-comment">
     <li class="post-list-comment__li" v-for="comment in post.comments" :key="comment.id">
       {{comment.body}}
       <a v-on:click="response=true">Lire Plus</a>
 
       <ul v-if="response === true" class="post-list-comment">
-        <li class="post-list-comment__li" v-for="child in comment.child_comments" :key="comment.id">
+        <li class="post-list-comment__li" v-for="child in comment.child_comments">
           {{child.body}}
         </li>
       </ul>
 
     </li>
-  </ul>
+  </ul> -->
 
   <a v-on:click="postVote()" >Voter pour ce projet</a>
-  <audio id="audio" src="../../img/ah.mp3" type="audio/mp3"></audio>
+  <audio id="audio" :src="sound"></audio>
 
   <div class="chart">
     <canvas id="myChart" width="400" height="400"></canvas>
@@ -44,9 +51,16 @@
   import _ from 'lodash'
   import Chart from 'chart.js'
 
+  // Import du composant PostsListComment
+  import PostListComment from '../PostListComment/PostListComment.vue'
+
   export default {
 
     name: 'post',
+
+    components: {
+      'post-list-comment': PostListComment
+    },
 
     data() {
       return {
@@ -57,7 +71,8 @@
         lastVoteId: 0,
         dataSet: [],
         post: null,
-        response: false
+        response: false,
+        sound: new Audio(this.getAbsoluteUrl('../../img/ah.mp3'))
       }
     },
 
@@ -181,8 +196,17 @@
           });
       },
 
+      getAbsoluteUrl(url) {
+        var a = document.createElement('a');
+        a.href = url;
+        return a.href;
+      },
+
       postVote () {
-        document.getElementById("audio").play()
+
+        console.log(this.sound)
+        this.sound.play()
+
       }
   }
 }
