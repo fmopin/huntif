@@ -29,6 +29,8 @@
 
   export default {
 
+    name: 'post',
+
     data() {
       return {
         votes: [],
