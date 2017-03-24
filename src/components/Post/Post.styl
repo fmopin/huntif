@@ -15,14 +15,26 @@
 
 .post-votes
   flex 0 0 250px
-  margin-top 120px
+  margin-top 150px
 
-.post-votes__chart
-  height 50vh
+  &__button
+    display block
+    background-color $orange-flame-pea
+    color $white
+    padding 5px
+    padding-top 8px
+    font-size .8em
+    text-align center
+    width 100px
+    border-radius 3px 3px 3px 3px
+    box-shadow none
+    height 30px
+    margin 0 auto
+    cursor pointer
 
-.post-votes_button
-  margin-bottom 20px
-  color red
+  &__chart
+    height 50vh
+    margin-top 50px
 
 .post-comments
   display flex
@@ -45,7 +57,7 @@
 
 .post-main
   flex 1 1 0
-  margin-top 120px
+  margin-top 150px
 
 .post-main-desc
   display block
