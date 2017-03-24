@@ -8,7 +8,7 @@
 
     <router-link class="posts-list-item__a" :to="{name:'post_component', params: {
         postId: post.id,
-        postName: post.name,
+        postName: post.name.replace(/\s/g, '-'),
         /*postTagline: post.tagline,
         postVotes: post.votes_count,
         postImage: post.thumbnail.image_url,
