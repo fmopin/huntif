@@ -2,8 +2,6 @@
 <style lang="stylus" src="./Post.styl"></style>
 <!-- <style lang="stylus" src="../Home/Home.styl"></style> -->
 
-
-
 <template>
 
 <div v-if='loader < 2' class="posts-list__loader">
@@ -11,6 +9,18 @@
 </div>
 
 <div v-else-if="loader===2" class="wrapper-post">
+
+  <div v-show="denis === 'on' " id="particles-js" class="denis-rain"></div>
+
+  <!-- <div class="denis-rain">
+    <img src="../../../Public/img/AH-slack.png" alt="loader">
+    <img src="../../../Public/img/AH-slack.png" alt="loader">
+    <img src="../../../Public/img/AH-slack.png" alt="loader">
+    <img src="../../../Public/img/AH-slack.png" alt="loader">
+    <img src="../../../Public/img/AH-slack.png" alt="loader">
+    <img src="../../../Public/img/AH-slack.png" alt="loader">
+  </div> -->
+
 
   <img class="post-banner" :src="post.screenshot_url['850px']" alt="">
 
@@ -48,13 +58,13 @@
 </div>
 </template>
 
-
 <script>
 
   // Import de certaines librairies nécessaires dans ce composant
   import axios from 'axios'
   import _ from 'lodash'
   import Chart from 'chart.js'
+  import Particle from 'particles.js'
 
   // Import du composant PostsListComment
   import PostListComment from '../PostListComment/PostListComment.vue'
@@ -77,7 +87,8 @@
         dataSet: [],
         post: null,
         response: false,
-        sound: new Audio(this.getAbsoluteUrl('../../../Public/ah.mp3'))
+        sound: new Audio(this.getAbsoluteUrl('../../../Public/ah.mp3')),
+        denis: 'off'
       }
     },
 
@@ -133,7 +144,7 @@
         let hours = []
         let count = {}
 
-        for (var i = 0; i < this.votes.length; i++) {
+        for (let i = 0; i < this.votes.length; i++) {
           hours.push(new Date(this.votes[i].date).getHours())
         }
 
@@ -144,8 +155,8 @@
 
       createChart() {
 
-        var ctx = document.getElementById("myChart").getContext("2d")
-        var myChart = new Chart(ctx, {
+        let ctx = document.getElementById("myChart").getContext("2d")
+        let myChart = new Chart(ctx, {
             type: 'line',
             data: {
                 labels: Object.keys(this.dataSet),
@@ -209,7 +220,7 @@
       },
 
       getAbsoluteUrl(url) {
-        var a = document.createElement('a');
+        let a = document.createElement('a');
         a.href = url;
         return a.href;
       },
@@ -219,6 +230,121 @@
         console.log(this.sound)
         this.sound.play()
 
+        particlesJS('particles-js', {
+            "particles": {
+              "number": {
+                "value": 80,
+                "density": {
+                  "enable": true,
+                  "value_area": 800
+                }
+              },
+              "color": {
+                "value": "#ffffff"
+              },
+              "shape": {
+                "type": "image",
+                "stroke": {
+                  "width": 0,
+                  "color": "#000000"
+                },
+                "polygon": {
+                  "nb_sides": 5
+                },
+                "image": {
+                  "src": "https://pbs.twimg.com/media/CwLxQonXYAAIF14.jpg",
+                  "width": 100,
+                  "height": 100
+                }
+              },
+              "opacity": {
+                "value": 0.5,
+                "random": false,
+                "anim": {
+                  "enable": false,
+                  "speed": 1,
+                  "opacity_min": 0.1,
+                  "sync": false
+                }
+              },
+              "size": {
+                "value": 50,
+                "random": true,
+                "anim": {
+                  "enable": false,
+                  "speed": 80,
+                  "size_min": 0.1,
+                  "sync": false
+                }
+              },
+              "line_linked": {
+                "enable": false,
+                "distance": 300,
+                "color": "#ffffff",
+                "opacity": 0.4,
+                "width": 2
+              },
+              "move": {
+                "enable": true,
+                "speed": 12,
+                "direction": "bottom",
+                "random": false,
+                "straight": false,
+                "out_mode": "out",
+                "bounce": false,
+                "attract": {
+                  "enable": false,
+                  "rotateX": 600,
+                  "rotateY": 1200
+                }
+              }
+            },
+            "interactivity": {
+              "detect_on": "canvas",
+              "events": {
+                "onhover": {
+                  "enable": false,
+                  "mode": "repulse"
+                },
+                "onclick": {
+                  "enable": true,
+                  "mode": "push"
+                },
+                "resize": true
+              },
+              "modes": {
+                "grab": {
+                  "distance": 800,
+                  "line_linked": {
+                    "opacity": 1
+                  }
+                },
+                "bubble": {
+                  "distance": 800,
+                  "size": 80,
+                  "duration": 2,
+                  "opacity": 0.8,
+                  "speed": 3
+                },
+                "repulse": {
+                  "distance": 400,
+                  "duration": 0.4
+                },
+                "push": {
+                  "particles_nb": 4
+                },
+                "remove": {
+                  "particles_nb": 2
+                }
+              }
+            },
+            "retina_detect": true
+          }
+        , function() {
+          console.log('callback - particles.js config loaded');
+        });
+
+        this.denis = 'on'
       }
   }
 }
