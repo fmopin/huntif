@@ -6,15 +6,19 @@
 
 <template>
 
-<div class="wrapper-post">
+<div v-if='loader===0' class="posts-list__loader">
+  <img src="../../img/loader.gif" alt="loader">
+</div>
 
-  <img class="post-banner" :src="this.$route.params.postScreenshot['850px']" alt="">
+<div v-else-if="loader===1" class="wrapper-post">
+
+  <img class="post-banner" :src="post.screenshot_url['850px']" alt="">
 
   <div class="post-main">
     <div class="post-main-desc">
-      <img class="post-main-desc__img" :src="this.$route.params.postImage" alt="">
-      <h2 class="post-main-desc__h2">{{this.$route.params.postName}}</h2>
-      <p class="post-main-desc__p">{{this.$route.params.postTagline}}</p>
+      <img class="post-main-desc__img" :src="post.thumbnail.image_url" alt="">
+      <h2 class="post-main-desc__h2">{{post.name}}</h2>
+      <p class="post-main-desc__p">{{post.tagline}}</p>
     </div>
 
     <div class="post-main-maker">
@@ -23,9 +27,6 @@
 
     <ul class="post-comments">
       <post-list-comment v-for="comment in post.comments" :key="comment.id" :comment="comment"></post-list-comment>
-      <!-- <div class="posts-list__loader" v-if='loader === 0'>
-        <img src="../../img/loader.gif" alt="loader">
-      </div> -->
     </ul>
   </div>
 
@@ -75,7 +76,6 @@
     },
 
     created() {
-      this.getVotes()
       this.getPost()
     },
 
@@ -86,14 +86,13 @@
 
         console.log('get votes function executed')
 
-        this.loader = 0
-        axios.get(`v1/posts/${this.$route.params.postId}/votes`, {params: {newer: this.lastVoteId, order: 'asc'}})
+        axios.get(`v1/posts/${this.post.id}/votes`, {params: {newer: this.lastVoteId, order: 'asc'}})
         // axios.get(`v1/posts/${this.$route.params.postId}/votes`)
           .then((response) => {
 
             // console.log(response)
 
-            if (this.votes.length < this.$route.params.postVotes) {
+            if (this.votes.length < this.post.votes_count) {
 
               for (let i = 0; i < response.data.votes.length; i++) {
                 this.votes.push({
@@ -106,7 +105,7 @@
               this.getVotes()
             }
             else {
-              this.votes = this.votes.splice(0, this.$route.params.postVotes)
+              this.votes = this.votes.splice(0, this.post.votes_count)
               this.votesPerDay()
             }
           })
@@ -188,6 +187,8 @@
           .then((response) => {
             console.log(response.data.post)
             this.post = response.data.post
+            this.getVotes()
+            this.loader = 1
           })
           .catch(function (error) {
             console.log(error)
