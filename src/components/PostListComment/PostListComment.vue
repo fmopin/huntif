@@ -6,8 +6,8 @@
 
   <li class="post-list-comment">
 
+    <p class="post-list-comment__username">De : {{comment.user.username}}</p>
     <p class="post-list-comment__content">{{comment.body}}</p>
-    <p class="post-list-comment__content">{{comment.user.username}}</p>
     <a v-if="response === true" class="post-list-comment__readMore" v-on:click="displayChildComments()">Lire Moins</a>
     <a v-if="response === false && comment.child_comments.length > 0" class="post-list-comment__readMore" v-on:click="displayChildComments()">Lire Plus</a>
 

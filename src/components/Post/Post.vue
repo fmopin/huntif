@@ -16,18 +16,17 @@
 
   <div class="post-main">
     <div class="post-main-desc">
-      <img class="post-main-desc__img" :src="post.thumbnail.image_url" alt="">
-      <h2 class="post-main-desc__h2">{{post.name}}</h2>
-      <p class="post-main-desc__p">{{post.tagline}}</p>
-    </div>
+      <div class="post-main-desc-project">
+        <img class="post-main-desc-project__img" :src="post.thumbnail.image_url" alt="">
+        <h2 class="post-main-desc-project__h2">{{post.name}}</h2>
+        <p class="post-main-desc-project__p">{{post.tagline}}</p>
+      </div>
 
-    <div class="post-main-maker">
-      <h2 class="post-main-maker__h2" v-for="maker in post.makers">{{maker.name}}</h2>
-      <p class="post-main-maker__p">{{post.makers.twitter_username}}</p>
-    </div>
-
-    <div class="post-main-maker">
-
+      <div class="post-main-desc-maker">
+        <img class="post-main-desc-maker__img" v-for="maker in post.makers" :src="maker.image_url['120px']" alt="">
+        <h2 class="post-main-desc-maker__h2" v-for="maker in post.makers">{{maker.name}}</h2>
+        <a v-for="maker in post.makers" :href="twitterUrl(maker)"><img class="post-main-desc-maker__twitterimg" src="../../img/logo_twitter.png" alt="Twitter"></a>
+      </div>
     </div>
 
     <ul class="post-comments">
@@ -85,6 +84,10 @@
     },
 
     methods: {
+
+      twitterUrl(maker) {
+        return `https://twitter.com/${maker.twitter_username}`
+      },
 
       getVotes() {
         //requete ProductHunt

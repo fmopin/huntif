@@ -72,6 +72,12 @@
   margin-right 30px
 
 .post-main-desc
+  display flex
+  justify-content space-around
+  flex-flow row wrap
+  margin-bottom 30px
+
+.post-main-desc-project
   display block
   text-align center
 
@@ -93,3 +99,24 @@
     padding-bottom 20px
     padding-top 4px
     font-size .75em
+
+.post-main-desc-maker
+  display block
+  text-align center
+
+  &__img
+    width 80px
+    height 80px
+    border-radius 50%
+
+  &__h2
+    color $orange-flame-pea
+    padding-top 20px
+    padding-bottom 10px
+    font-weight 700
+    font-size 1.2em
+    margin-bottom 8px
+
+  &__twitterimg
+    width 30px
+    height 30px
