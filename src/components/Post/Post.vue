@@ -17,12 +17,14 @@
   <div class="post-main">
     <div class="post-main-desc">
       <div class="post-main-desc-project">
+        <h3 class="post-main-desc-project__h3">PROJET</h3>
         <img class="post-main-desc-project__img" :src="post.thumbnail.image_url" alt="">
         <h2 class="post-main-desc-project__h2">{{post.name}}</h2>
         <p class="post-main-desc-project__p">{{post.tagline}}</p>
       </div>
 
       <div class="post-main-desc-maker">
+        <h3 class="post-main-desc-project__h3">MAKER</h3>
         <img class="post-main-desc-maker__img" v-for="maker in post.makers" :src="maker.image_url['120px']" alt="">
         <h2 class="post-main-desc-maker__h2" v-for="maker in post.makers">{{maker.name}}</h2>
         <a v-for="maker in post.makers" :href="twitterUrl(maker)" target="_blank"><img class="post-main-desc-maker__twitterimg" src="../../img/logo_twitter.png" alt="Twitter"></a>
