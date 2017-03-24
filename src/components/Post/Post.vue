@@ -22,7 +22,7 @@
     </div>
 
     <div class="post-main-maker">
-      <h2 class="post-main-maker__h2">{{post.makers[0].name}}</h2>
+      <h2 class="post-main-maker__h2" v-for="maker in post.makers">{{maker.name}}</h2>
       <p class="post-main-maker__p">{{post.makers.twitter_username}}</p>
     </div>
 
@@ -31,7 +31,7 @@
     </div>
 
     <ul class="post-comments">
-      <post-list-comment v-for="comment in post.comments" :key="comment.id" :comment="comment"></post-list-comment>
+      <post-list-comment v-for="comment in post.comments" :key="post.id" :comment="comment"></post-list-comment>
     </ul>
   </div>
 
