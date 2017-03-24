@@ -5,26 +5,38 @@
 
 
 <template>
-<div>
 
-  <span>Post Id: </span>
-  <span>{{this.$route.params.postId}}</span>
-  <span> Post Name: </span>
-  <span>{{this.$route.params.postName}}</span>
+<div class="wrapper-post">
 
-  <ul class="post-comments">
-    <post-list-comment v-for="comment in post.comments" :key="comment.id" :comment="comment"></post-list-comment>
-    <!-- <div class="posts-list__loader" v-if='loader === 0'>
-      <img src="../../img/loader.gif" alt="loader">
-    </div> -->
-  </ul>
+  <img class="post-banner" :src="this.$route.params.postScreenshot['850px']" alt="">
 
-  <a v-on:click="postVote()" >Voter pour ce projet</a>
-  <audio id="audio" :src="sound"></audio>
+  <div class="post-main">
+    <div class="post-main-desc">
+      <img class="post-main-desc__img" :src="this.$route.params.postImage" alt="">
+      <h2 class="post-main-desc__h2">{{this.$route.params.postName}}</h2>
+      <p class="post-main-desc__p">{{this.$route.params.postTagline}}</p>
+    </div>
 
-  <div class="chart">
-    <canvas id="myChart" width="400" height="400"></canvas>
+    <div class="post-main-maker">
+
+    </div>
+
+    <ul class="post-comments">
+      <post-list-comment v-for="comment in post.comments" :key="comment.id" :comment="comment"></post-list-comment>
+      <!-- <div class="posts-list__loader" v-if='loader === 0'>
+        <img src="../../img/loader.gif" alt="loader">
+      </div> -->
+    </ul>
   </div>
+
+  <aside class="post-votes">
+    <a class="post-votes__button" v-on:click="postVote()" >Voter pour ce projet</a>
+    <audio id="audio" :src="sound"></audio>
+
+    <div class="post-votes__chart">
+      <canvas id="myChart" width="400" height="400"></canvas>
+    </div>
+  </aside>
 
 </div>
 </template>

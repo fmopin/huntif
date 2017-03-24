@@ -1,9 +1,28 @@
 // Import des variables css (à charger dans chaque composant si besoin)
 @import '~css/variables'
 
-.chart
-  width 35%
-  height 35%
+.wrapper-post
+  display flex
+  margin 0
+
+.post-banner
+  position absolute
+  left 0
+  width 100%
+  height 120px
+  object-fit cover
+
+
+.post-votes
+  flex 0 0 250px
+  margin-top 120px
+
+.post-votes__chart
+  height 50vh
+
+.post-votes_button
+  margin-bottom 20px
+  color red
 
 .post-comments
   display flex
@@ -23,3 +42,29 @@
     box-shadow 0 1px 1px 0 $gray-gray
     margin-top 20px
     padding 20px 40px 40px 20px
+
+.post-main
+  flex 1 1 0
+  margin-top 120px
+
+.post-main-desc
+  display block
+
+  &__img
+    width 80px
+    height 80px
+    border-radius 50%
+    margin-top 20px
+
+  &__h2
+    color $orange-flame-pea
+    padding-top 20px
+    padding-bottom 10px
+    font-weight 700
+    font-size 1.2em
+
+  &__p
+    color $gray-gray
+    padding-bottom 20px
+    padding-top 4px
+    font-size .75em
