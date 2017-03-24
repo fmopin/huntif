@@ -25,7 +25,7 @@
       <div class="post-main-desc-maker">
         <img class="post-main-desc-maker__img" v-for="maker in post.makers" :src="maker.image_url['120px']" alt="">
         <h2 class="post-main-desc-maker__h2" v-for="maker in post.makers">{{maker.name}}</h2>
-        <a v-for="maker in post.makers" :href="twitterUrl(maker)" taget="_blank"><img class="post-main-desc-maker__twitterimg" src="../../img/logo_twitter.png" alt="Twitter"></a>
+        <a v-for="maker in post.makers" :href="twitterUrl(maker)" target="_blank"><img class="post-main-desc-maker__twitterimg" src="../../img/logo_twitter.png" alt="Twitter"></a>
       </div>
     </div>
 
