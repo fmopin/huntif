@@ -23,7 +23,7 @@ const routes = [
     name: 'home_component'
   },
   {
-    path: '/posts/:postId',
+    path: '/posts/:postName',
     component: Post,
     name: 'post_component',
   }
