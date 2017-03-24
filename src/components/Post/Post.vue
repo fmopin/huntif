@@ -6,11 +6,11 @@
 
 <template>
 
-<div v-if='loader===0' class="posts-list__loader">
+<div v-if='loader < 2' class="posts-list__loader">
   <img src="../../img/loader.gif" alt="loader">
 </div>
 
-<div v-else-if="loader===1" class="wrapper-post">
+<div v-else-if="loader===2" class="wrapper-post">
 
   <img class="post-banner" :src="post.screenshot_url['850px']" alt="">
 
@@ -76,7 +76,7 @@
         dataSet: [],
         post: null,
         response: false,
-        sound: new Audio(this.getAbsoluteUrl('../../img/ah.mp3'))
+        sound: new Audio(this.getAbsoluteUrl('../../../Public/ah.mp3'))
       }
     },
 
@@ -106,12 +106,14 @@
                 })
               }
               this.lastVoteId = this.votes[this.votes.length-1].id
-
               this.getVotes()
             }
             else {
               this.votes = this.votes.splice(0, this.post.votes_count)
-              this.votesPerDay()
+              this.loader += 1
+              this.$nextTick(() => {
+                this.votesPerDay()
+              })
             }
           })
           .catch(function (error) {
@@ -193,7 +195,8 @@
             console.log(response.data.post)
             this.post = response.data.post
             this.getVotes()
-            this.loader = 1
+            this.loader += 1
+
           })
           .catch(function (error) {
             console.log(error)
