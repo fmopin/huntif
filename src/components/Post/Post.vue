@@ -22,7 +22,7 @@
     </div>
 
     <div class="post-main-maker">
-      <h2 class="post-main-maker__h2">{{post.makers.name}}</h2>
+      <h2 class="post-main-maker__h2">{{post.makers[0].name}}</h2>
       <p class="post-main-maker__p">{{post.makers.twitter_username}}</p>
     </div>
 
