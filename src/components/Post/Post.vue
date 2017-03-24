@@ -76,7 +76,7 @@
 
     created() {
       this.getVotes()
-      this.getComments()
+      this.getPost()
     },
 
     methods: {
@@ -182,7 +182,7 @@
         })
       },
 
-      getComments () {
+      getPost () {
         https://api.producthunt.com/v1/docs/posts/posts_show_get_details_of_a_post
         axios.get(`v1/posts/${this.$route.params.postId}/`, {params: {id: this.$route.params.postId}})
           .then((response) => {
